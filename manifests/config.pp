@@ -5,9 +5,10 @@
 class redis_sentinel::config {
 
   concat { $redis_sentinel::config_file:
-    owner => $redis_sentinel::user,
-    group => $redis_sentinel::group,
-    mode  => '0440',  
+    owner   => $redis_sentinel::user,
+    group   => $redis_sentinel::group,
+    mode    => '0660',  
+    replace => false
   }
   
   concat::fragment { 'sentinel_header': 

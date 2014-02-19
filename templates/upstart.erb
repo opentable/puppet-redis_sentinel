@@ -9,9 +9,7 @@ limit nofile 20000 65000
 
 pre-start script
 mkdir -p /var/run/redis
-mkdir -p /var/log/redis
 chown redis:redis /var/run/redis
-chown redis:redis /var/log/redis
 end script
 
 exec start-stop-daemon --start --chuid redis:redis --pidfile /var/run/redis/redis-sentinel.pid --umask 007 --exec /usr/bin/redis-server -- <%= scope.lookupvar('redis_sentinel::config_file') -%> --sentinel

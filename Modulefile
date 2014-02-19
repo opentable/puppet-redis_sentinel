@@ -7,5 +7,5 @@ summary       'Configure redis-sentinels'
 description   'Configure redis-sentinels'
 project_page  'https://github.com/solarkennedy/puppet-redis_sentinel'
 
-dependency 'puppetlabs/stdlib'
-dependency 'puppetlabs/concat'
+dependency 'puppetlabs/stdlib', '>= 0'
+dependency 'puppetlabs/concat', '>= 0'

@@ -3,5 +3,4 @@
 sentinel monitor <%= @name -%> <%= @host -%> <%= @port -%> <%= @quorum %>
 sentinel down-after-milliseconds <%= @name -%> <%= @down_after_milliseconds %>
 sentinel failover-timeout <%= @name -%> <%= @failover_timeout %>
-sentinel can-failover <%= @name -%> <%= @can_failover %>
 sentinel parallel-syncs <%= @name -%> <%= @parallel_syncs %>

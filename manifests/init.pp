@@ -8,13 +8,15 @@
 #   Explanation of what this parameter affects and what it defaults to.
 #
 class redis_sentinel (
-  $ensure         = 'present',
-  $config_file    = '/etc/redis/redis-sentinel.conf',
-  $service_name   = 'redis-sentinel',
-  $service_ensure = 'running',
-  $service_enable = true,
-  $user           = 'redis',
-  $group          = 'redis',
+  $ensure                 = 'present',
+  $config_file            = '/etc/redis/redis-sentinel.conf',
+  $service_name           = 'redis-sentinel',
+  $service_ensure         = 'running',
+  $service_enable         = true,
+  $user                   = 'redis',
+  $group                  = 'redis',
+  $tcp_keepalive          = 60,
+  $tcp_keepalive_enabled  = false,
 ) {
 
   validate_bool($service_enable)

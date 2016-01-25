@@ -12,4 +12,4 @@ mkdir -p /var/run/redis
 chown redis:redis /var/run/redis
 end script
 
-exec start-stop-daemon --start --chuid redis:redis --pidfile /var/run/redis/redis-sentinel.pid --umask 007 --exec /usr/bin/redis-server -- <%= scope.lookupvar('redis_sentinel::config_file') -%> --sentinel
+exec start-stop-daemon --start --chuid redis:redis --pidfile /var/run/redis/redis-sentinel.pid --umask 007 --exec <%= scope.lookupvar('redis_sentinel::redis_bin_dir') %>/bin/redis-server -- <%= scope.lookupvar('redis_sentinel::config_file') -%> --sentinel

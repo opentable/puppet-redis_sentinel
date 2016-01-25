@@ -9,6 +9,7 @@
 #
 class redis_sentinel (
   $ensure         = 'present',
+  $redis_bin_dir  = '/usr',
   $config_file    = '/etc/redis/redis-sentinel.conf',
   $service_name   = 'redis-sentinel',
   $service_ensure = 'running',

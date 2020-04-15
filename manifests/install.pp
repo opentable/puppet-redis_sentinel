@@ -2,18 +2,8 @@
 #
 class redis_sentinel::install {
 
-  #TODO: This isn't really a good way to figure out if an OS is upstart capable or not
-  case $::osfamily {
-    'RedHat': {
-      file { '/etc/init.d/redis-sentinel':
-        ensure   => $redis_sentinel::ensure,
-        mode     => '0555',
-        owner    => 'root',
-        group    => 'root',
-        content => template('redis_sentinel/init.erb'),
-      }
-    }
-    'Debian': {
+  case $facts['service_provider'] {
+    'upstart': {
       file { '/etc/init/redis-sentinel.conf':
         ensure   => $redis_sentinel::ensure,
         mode     => '0444',
@@ -26,8 +16,51 @@ class redis_sentinel::install {
        target => '/lib/init/upstart-job',
        force  => true,
       }
-
     }
-    default: { fail('Unknown OS') }
-  } 
+    'systemd': {
+      file { "redis_sentinel_service":
+        ensure  => present,
+        path    => "/etc/systemd/system/redis_sentinel.service",
+        content => template('redis_sentinel/systemd.erb'),
+        mode    => '0755',
+        replace => true,
+      }
+    }
+    default: {
+      file { '/etc/init.d/redis-sentinel':
+        ensure   => $redis_sentinel::ensure,
+        mode     => '0555',
+        owner    => 'root',
+        group    => 'root',
+        content => template('redis_sentinel/init.erb'),
+      }
+    }
+  }
+  # case $::osfamily {
+  #   'RedHat': {
+  #     file { '/etc/init.d/redis-sentinel':
+  #       ensure   => $redis_sentinel::ensure,
+  #       mode     => '0555',
+  #       owner    => 'root',
+  #       group    => 'root',
+  #       content => template('redis_sentinel/init.erb'),
+  #     }
+  #   }
+  #   'Debian': {
+  #     file { '/etc/init/redis-sentinel.conf':
+  #       ensure   => $redis_sentinel::ensure,
+  #       mode     => '0444',
+  #       owner    => 'root',
+  #       group    => 'root',
+  #       content => template('redis_sentinel/upstart.erb'),
+  #     }
+  #     file { '/etc/init.d/redis-sentinel':
+  #      ensure => 'link',
+  #      target => '/lib/init/upstart-job',
+  #      force  => true,
+  #     }
+  #
+  #   }
+  #   default: { fail('Unknown OS') }
+  # }
 }

@@ -1,0 +1,14 @@
+[Unit]
+Description=Redis Sentinel
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/redis-server <%= scope.lookupvar('redis_sentinel::config_file') -%> --sentinel
+ExecStop=/usr/bin/redis-cli -h localhost -p 26379 shutdown
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

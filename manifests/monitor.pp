@@ -1,15 +1,15 @@
 # == Define: redis_sentinel::monitor
 #
-# Sets up a particular piece of the Redis Sentinel config file to 
+# Sets up a particular piece of the Redis Sentinel config file to
 # monitor a paritcular redis instance
 #
 # === Paramaters
 #
 # [*ensure*]
 #   Present or absent. Defaults to present.
-# 
+#
 # ....
-# 
+#
 define redis_sentinel::monitor (
   $ensure                  = 'present',
   $host                    = $name,
@@ -19,6 +19,7 @@ define redis_sentinel::monitor (
   $failover_timeout        = '9000',
   $can_failover            = 'yes',
   $parallel_syncs          = '5',
+  $auth_password           = false,
 ) {
 
   include redis_sentinel

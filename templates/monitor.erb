@@ -4,3 +4,6 @@ sentinel monitor <%= @name -%> <%= @host -%> <%= @port -%> <%= @quorum %>
 sentinel down-after-milliseconds <%= @name -%> <%= @down_after_milliseconds %>
 sentinel failover-timeout <%= @name -%> <%= @failover_timeout %>
 sentinel parallel-syncs <%= @name -%> <%= @parallel_syncs %>
+<% if @auth_password %>
+sentinel auth-pass <%= @name -%> <%= @auth_password %>
+<% end %>

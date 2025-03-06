@@ -18,7 +18,7 @@ class redis_sentinel (
   $group          = 'redis',
 ) {
 
-  validate_bool($service_enable)
+  assert_type(Boolean, $service_enable)
 
   class { 'redis_sentinel::install': } ->
   class { 'redis_sentinel::config': } ~>

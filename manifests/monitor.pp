@@ -24,7 +24,6 @@ define redis_sentinel::monitor (
 
   include redis_sentinel
   concat::fragment { "redis_sentinel_${name}":
-    ensure  => $ensure,
     target  => $redis_sentinel::config_file,
     content => template('redis_sentinel/monitor.erb'),
   }
